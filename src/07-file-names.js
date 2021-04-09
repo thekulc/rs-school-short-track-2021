@@ -5,7 +5,7 @@
  *
  * Return an array of names that will be given to the files.
  *
- * @param {Array} names
+ * @param {Array} tmpNames
  * @return {Array}
  *
  * @example
@@ -13,8 +13,19 @@
  * the output should be ["file", "file(1)", "image", "file(1)(1)", "file(2)"]
  *
  */
-function renameFiles(/* names */) {
-  throw new Error('Not implemented');
+function renameFiles(names) {
+  const res = [];
+  const nList = {};
+  const tmpNames = names;
+  for (let i = 0; i < tmpNames.length; i++) {
+    if (tmpNames.slice(0, i + 1).filter((el) => el === tmpNames[i]).length > 1) {
+      if (!nList[tmpNames[i]]) nList[tmpNames[i]] = 0;
+      nList[tmpNames[i]] += 1;
+      tmpNames[i] = `${tmpNames[i]}(${nList[tmpNames[i]]})`;
+    }
+    res.push(tmpNames[i]);
+  }
+  return res;
 }
 
 module.exports = renameFiles;
