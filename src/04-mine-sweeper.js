@@ -21,8 +21,22 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+
+function getAroundCount(x, y, arr) {
+  let res = 0;
+  if (arr[y][x] === true) return 1;
+  for (let i = y - 1; i <= y + 1; i++) {
+    for (let j = x - 1; j <= x + 1; j++) {
+      if (typeof arr[i] !== 'undefined' && typeof arr[i][j] !== 'undefined' && arr[i][j] === true) {
+        res += 1;
+      }
+    }
+  }
+  return res;
+}
+
+function minesweeper(matrix) {
+  return matrix.map((row, i) => row.map((el, j) => getAroundCount(j, i, matrix)));
 }
 
 module.exports = minesweeper;
