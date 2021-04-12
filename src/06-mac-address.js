@@ -13,7 +13,7 @@
  *
  */
 function isMAC48Address(n) {
-  return new RegExp(/^[0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){5}$/i).test(n);
+  return new RegExp(/^[0-9a-fA-F]{2}(-[0-9a-fA-F]{2}){5}$/i).test(n);
 }
 
 module.exports = isMAC48Address;
