@@ -21,12 +21,15 @@
  *
  */
 function getDNSStats(domains) {
+  if (domains.length <= 0) return {};
   const arr = [...domains];
   const res = {};
   arr.push(domains[0].split('.')[domains[0].split('.').length - 1]);
-  arr.sort((a, b) => a.length - b.length);
-  arr.forEach((el) => {
-    res[el] = arr.filter((e) => e.startWidth(el)).length;
+  const tarr = arr.sort((a, b) => a.length - b.length)
+    .map((el) => el.split('.').reverse().join('.'));
+
+  tarr.forEach((el, idx) => {
+    res[`.${el}`] = idx > 0 ? tarr.filter((e) => e.startsWith(el)).length : tarr.filter((e) => e.startsWith(el)).length - 1;
   });
   return res;
 }
