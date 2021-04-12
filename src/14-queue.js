@@ -18,12 +18,16 @@ class Queue {
   }
 
   enqueue(element) {
-    this.queue = this.add(element);
+    const res = [];
+    const arr = this.getArray(this.queue, res);
+    arr.push(element);
+    this.queue = this.getList(arr);
     return element;
   }
 
   getArray(list, res) {
     if (!list) return [];
+    res.push(list.value);
     if (list.next) return this.getArray(list.next, res);
     return res;
   }
@@ -40,18 +44,10 @@ class Queue {
     return r;
   }
 
-  add(element) {
-    const res = [];
-    const arr = this.getArray(this.queue, res);
-    arr.push(element);
-    return this.getList(arr);
-  }
-
   dequeue() {
     const res = [];
-    const rObj = this.getArray(this.queue, res).pop();
-    console.log(this.queue);
-    res.pop();
+    const rObj = this.getArray(this.queue, res)[0];
+    res.shift();
     this.queue = this.getList(res);
     return rObj;
   }
